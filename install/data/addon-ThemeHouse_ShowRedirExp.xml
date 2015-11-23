@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="ThemeHouse_ShowRedirExp" title="[⌂] Show Redirect Expiry" version_string="1.0.0" version_id="1447261019" url="http://xf.themehouse.io/" install_callback_class="ThemeHouse_Install" install_callback_method="install" uninstall_callback_class="ThemeHouse_Install" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="controller_pre_dispatch" execute_order="10" callback_class="ThemeHouse_Listener_ControllerPreDispatch" callback_method="controllerPreDispatch" active="1" hint="" description=""/>
+    <listener event_id="file_health_check" execute_order="10" callback_class="ThemeHouse_ShowRedirExp_Listener_FileHealthCheck" callback_method="fileHealthCheck" active="1" hint="" description=""/>
+    <listener event_id="init_dependencies" execute_order="10" callback_class="ThemeHouse_Listener_InitDependencies" callback_method="initDependencies" active="1" hint="" description=""/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_ShowRedirExp_Listener_LoadClass" callback_method="loadClassModel" active="0" hint="XenForo_Model_Thread" description="XenForo_Model_Thread (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_ShowRedirExp_Listener_LoadClass" callback_method="loadClassController" active="0" hint="XenForo_ControllerPublic_Forum" description="XenForo_ControllerPublic_Forum (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="ThemeHouse_ShowRedirExp_Listener_LoadClass" callback_method="loadClassController" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="ThemeHouse_ShowRedirExp_Listener_LoadClass" callback_method="loadClassModel" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="th_expires_on_x_at_y_showredirexpiry" version_id="1435927753" version_string="1.0.0"><![CDATA[Expires on {date} at {time}]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications>
+    <modification template="footer" modification_key="th_copyrightNotice_showRedirExp" description="Copyright notice for [⌂] Show Redirect Expiry" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+    <modification template="footer" modification_key="th_copyrightNotice_showRedirExpiry" description="Copyright notice for Show Redirect Expiry by ThemeHouse" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+    <modification template="thread_list_item" modification_key="th_showRedirExpiry_threadListItem" description="" execution_order="10" enabled="1" action="preg_replace">
+      <find><![CDATA[#(<span class="redirect" title=)"[^"]*"#Us]]></find>
+      <replace><![CDATA[${1}"{xen:phrase th_expires_on_x_at_y_showredirexpiry, 'date={xen:date $thread.expiry_date}', 'time={xen:time $thread.expiry_date}'}"]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
